@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Tracker</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Activity Tracker</h1>
+
+    <form id="activityForm">
+        <label for="activityName">Activity:</label>
+        <input type="text" id="activityName" required>
+        <button type="button" onclick="addActivity()">Add Activity</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Activity</th>
+                <th>Total Occurrences</th>
+                <th>Streak</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="activityTable">
+            <!-- Rows will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Initial activities data
+        const activities = [
+            { name: "Amas news", total: 0, streak: 0 },
+            { name: "Job search and 1 hr to apply", total: 0, streak: 0 },
+            { name: "1 bottle down overall 3lt", total: 0, streak: 0 },
+            { name: "30 Study challenge", total: 0, streak: 0 },
+            { name: "Aditya", total: 0, streak: 0 },
+            { name: "Cream before sleep after bath", total: 0, streak: 0 },
+            { name: "Good n Complete neend", total: 0, streak: 0 },
+            { name: "3 plus meals", total: 0, streak: 0 },
+            { name: "Kriya sadhna / mental", total: 0, streak: 0 },
+            { name: "Good repeat bad avoide", total: 0, streak: 0 },
+            { name: "Gym", total: 0, streak: 0 },
+            { name: "Mataji balaji shivji ganeshji", total: 0, streak: 0 },
+            { name: "Narration gk non fiction", total: 0, streak: 0 },
+            { name: "Protein breakfast before 10am", total: 0, streak: 0 },
+            { name: "Pm course", total: 0, streak: 0 },
+            { name: "Priti questions", total: 0, streak: 0 },
+            { name: "Sattu Salt lemon water", total: 0, streak: 0 },
+            { name: "40 pushups daily", total: 0, streak: 0 },
+            { name: "Creative hobby", total: 0, streak: 0 },
+            { name: "MpA", total: 0, streak: 0 },
+            { name: "Date", total: 0, streak: 0 },
+            { name: "Bal malish", total: 0, streak: 0 },
+            { name: "Eye exercise", total: 0, streak: 0 },
+            { name: "Badam", total: 0, streak: 0 },
+            { name: "After success look feel n move", total: 0, streak: 0 },
+            { name: "Blocos (Plan tomorrow today)", total: 0, streak: 0 },
+            { name: "Library", total: 0, streak: 0 },
+            { name: "Log meal", total: 0, streak: 0 },
+            { name: "Off screen reading", total: 0, streak: 0 },
+            { name: "Snan", total: 0, streak: 0 },
+            { name: "Strengths n advantage jaykara", total: 0, streak: 0 },
+            { name: "Calls", total: 0, streak: 0 },
+            { name: "English bhajan", total: 0, streak: 0 },
+            { name: "Follow up chasing girls", total: 0, streak: 0 },
+            { name: "Sprouts", total: 0, streak: 0 },
+            { name: "Listen English at least 15min", total: 0, streak: 0 },
+            { name: "Revise the lecture", total: 0, streak: 0 }
+        ];
+
+        function renderTable() {
+            const tableBody = document.getElementById('activityTable');
+            tableBody.innerHTML = '';
+
+            // Sort activities by total occurrences in descending order
+            activities.sort((a, b) => b.total - a.total);
+
+            activities.forEach((activity, index) => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${activity.name}</td>
+                    <td>${activity.total}</td>
+                    <td id="streak-${index}">${activity.streak}</td>
+                    <td>
+                        <button onclick="incrementOccurrence(${index})">Increment Occurrence</button>
+                        <button onclick="resetStreak(${index})">Reset Streak</button>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function addActivity() {
+            const name = document.getElementById('activityName').value;
+            if (name) {
+                activities.push({ name: name, total: 0, streak: 0 });
+                renderTable();
+                document.getElementById('activityName').value = ''; // Clear input field
+            } else {
+                alert('Please enter an activity name.');
+            }
+        }
+
+        function incrementOccurrence(index) {
+            activities[index].total += 1;
+            activities[index].streak += 1; // Assuming streak increases with occurrence
+            renderTable();
+        }
+
+        function resetStreak(index) {
+            activities[index].streak = 0;
+            renderTable();
+        }
+
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>
